@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react",
+    "outDir": "lib",
+    "rootDir": "src",
+    "declaration": true,
+    "composite": true,
+    "incremental": true,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "preserveWatchOutput": true,
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    /* JupyterLab requires these */
+    "moduleResolution": "node",
+    "noUnusedParameters": false,
+    "strictNullChecks": false,
+  },
+  "include": ["src/**/*"]
+}

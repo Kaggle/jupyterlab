@@ -22,8 +22,10 @@ jupyter labextension install @kaggle/jupyterlab
 # Move to jupyterlab directory
 # Install dependencies
 > yarn
+
 # Build All
 > yarn build:all
+
 # Start the docker running JupyterLab with @kaggle/jupyterlab extension
 # Look for the url to access the JupyterLab instance in console output
 # after the service finishes starting up

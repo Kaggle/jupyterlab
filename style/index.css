@@ -1,0 +1,14 @@
+.jp-Kaggle {
+  background-color: var(--jp-layout-color1);
+  height: 100%;
+  width: 283px;
+}
+
+.jp-Kaggle-icon {
+    background-image: url(kaggle.svg)
+}
+
+/* this is not in the JupyterLab css by default */
+.jp-SearchIcon {
+  background-image: var(--jp-icon-search);
+}
