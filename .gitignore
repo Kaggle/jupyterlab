@@ -1,0 +1,24 @@
+# npm
+test/build/*
+node_modules/
+npm-debug.log
+package-lock.json
+
+npm_packages/
+**/node_modules/
+**/package-lock.json
+
+# editor
+**/.vscode/
+**/.idea/
+
+# misc
+.DS_Store
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+*.bundle.*
+*.tsbuildinfo
+*.log

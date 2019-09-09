@@ -1,0 +1,8 @@
+* text eol=lf
+
+# these files needs to have linux style line ending
+*.sh text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+Dockerfile text eol=lf
+LICENSE text eol=lf

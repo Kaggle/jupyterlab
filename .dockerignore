@@ -1,0 +1,25 @@
+.git/
+
+.dockerignore
+.gitignore
+
+npm_packages/
+
+# editor
+**/.vscode/
+**/.idea/
+
+**/node_modules/
+**/Dockerfile*
+**/package-lock.json
+
+# misc
+.DS_Store
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+*.bundle.*
+*.tsbuildinfo
+*.log
