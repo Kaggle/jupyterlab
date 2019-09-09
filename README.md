@@ -1,4 +1,4 @@
-# jupyterlab-kaggle
+# @kaggle/jupyterlab
 
 Official Kaggle extension for JupyterLab.
 
