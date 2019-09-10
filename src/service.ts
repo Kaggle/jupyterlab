@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { JSONObject } from "@phosphor/coreutils";
-import { ISettingRegistry, PathExt } from "@jupyterlab/coreutils";
+import { ISettingRegistry, PathExt, PageConfig } from "@jupyterlab/coreutils";
 import { IDocumentManager } from "@jupyterlab/docmanager";
 import { Contents } from "@jupyterlab/services";
 
@@ -195,7 +195,9 @@ export class KaggleService {
       path: "work",
       type: "notebook",
     });
-    const datasetPath: string = "~/" + PathExt.join(
+
+    const datasetPath: string = "/" + PathExt.join(
+      PageConfig.getOption('serverRoot'),
       KaggleService.ROOT_PATH,
       dataset.ref
     );

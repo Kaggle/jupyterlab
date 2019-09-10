@@ -48,6 +48,7 @@ const DatasetItemWrapper = styled(BaseWrapper)`
   padding: 2px 2px 2px 6px;
   :hover {
     background-color: var(--jp-layout-color2);
+    cursor: grab;
   }
 `;
 
@@ -58,10 +59,17 @@ const DatasetTitleLabel = styled(BaseLabel)`
 const DatasetSlugLabel = styled(BaseLink)`
   color: var(--jp-content-link-color);
   font-size: var(--jp-ui-font-size0);
+  :hover {
+    color: var(--jp-content-link-color);
+  }
 `;
 
 const DatasetOwnerLabel = styled(BaseLink)`
+  color: var(--jp-content-link-color);
   font-size: var(--jp-ui-font-size0);
+  :hover {
+    color: var(--jp-content-link-color);
+  }
 `;
 
 const DatasetStatsWrapper = styled(BaseWrapper)`
