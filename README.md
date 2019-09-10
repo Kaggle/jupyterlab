@@ -33,8 +33,8 @@ jupyter labextension install @kaggle/jupyterlab
 ```
 
 You can modify the Typescript files while docker is running and rebuild
-the extension to see the changes in JupyterLab.  Requires refresh of browser
-after the extension has been rebuild
+the extension to see the changes in JupyterLab.  Requires a refresh of
+your browser after the extension has been rebuild.
 
 ```bash
 # Rebuild Typescript source after making changes
