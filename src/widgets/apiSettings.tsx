@@ -28,13 +28,21 @@ import {
 
 const Heading = styled.h2``;
 
-const InputLabel = styled(BaseLabel)``;
+const InputLabel = styled(BaseLabel)`
+  margin: 4px;
+  padding: 1px 6px;
+`;
 
-const Username = styled(BaseInput)``;
+const Username = styled(BaseInput)`
+  color: var(--jp-ui-font-color3);
+  margin: 4px;
+  padding: 1px 6px;
+`;
 
-const ApiKey = styled(BaseInput)``;
-
-const SaveAction = styled(BaseButton)``;
+const SaveAction = styled(BaseButton)`
+  margin: 4px;
+  padding: 1px 6px;
+`;
 
 const ImportAction = styled(BaseLabel)`
   background-color: rgb(0, 138, 188);
@@ -111,31 +119,22 @@ function ApiSettings(props: ApiSettingsProps) {
       <Heading>Api Settings</Heading>
       <InputLabel hidden={showError}>{error}</InputLabel>
       <ApiForm onSubmit={validate}>
-        <InputLabel>Username</InputLabel>
-        <Username
-          type="text"
-          placeholder="username"
-          autoComplete="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-        <InputLabel>Api Key</InputLabel>
-        <ApiKey
-          type="password"
-          placeholder="apiKey"
-          autoComplete="new-password"
-          value={token}
-          onChange={e => setToken(e.target.value)}
-        />
-        <SaveAction onClick={e => e.stopPropagation()}>Save</SaveAction>
         <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
           {({ getRootProps, getInputProps }) => (
             <Dropzone {...getRootProps()}>
-              <ImportAction>Import Api Token</ImportAction>
+              <InputLabel>Import Api Token</InputLabel>
+              <Username
+                type="text"
+                disabled
+                placeholder="Username"
+                value={username}
+              />
+              <ImportAction>Browse</ImportAction>
               <ImportInput {...getInputProps()} />
             </Dropzone>
           )}
         </ReactDropzone>
+        <SaveAction onClick={e => e.stopPropagation()}>Save</SaveAction>
       </ApiForm>
     </WidgetWrapper>
   );
