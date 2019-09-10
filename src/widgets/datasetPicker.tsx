@@ -56,6 +56,7 @@ const DatasetTitleLabel = styled(BaseLabel)`
 `;
 
 const DatasetSlugLabel = styled(BaseLink)`
+  color: var(--jp-content-link-color);
   font-size: var(--jp-ui-font-size0);
 `;
 

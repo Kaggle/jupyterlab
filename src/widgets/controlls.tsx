@@ -50,15 +50,6 @@ export const WidgetWrapper = styled(BaseWrapper)`
   padding: 4px;
 `;
 
-export const BaseForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-`;
-
 export const BaseLabel = styled.span`
   color: var(--jp-ui-font-color0);
   display: block;

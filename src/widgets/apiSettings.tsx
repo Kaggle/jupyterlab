@@ -23,39 +23,35 @@ import {
   BaseLabel,
   WidgetWrapper,
   BaseWrapper,
-  BaseForm,
 } from "./controlls";
 
 const Heading = styled.h2``;
 
+const ErrorMessage = styled(BaseLabel)`
+  color: var(--jp-error-color1);
+  padding: 2px 4px;
+`;
+
 const InputLabel = styled(BaseLabel)`
-  margin: 4px;
-  padding: 1px 6px;
+  padding: 2px 4px;
 `;
 
 const Username = styled(BaseInput)`
   color: var(--jp-ui-font-color3);
-  margin: 4px;
-  padding: 1px 6px;
+  margin: 2px;
+  padding: 0px 2px;
+  width: calc(100% - 4px);
+  ::placeholder {
+    font-size: var(--jp-ui-font-size0);
+  }
 `;
 
 const SaveAction = styled(BaseButton)`
-  margin: 4px;
-  padding: 1px 6px;
-`;
-
-const ImportAction = styled(BaseLabel)`
-  background-color: rgb(0, 138, 188);
-  border: 0px;
-  border-radius: var(--jp-border-radius);
-  color: var(--jp-ui-inverse-font-color0);
-  font-size: var(--jp-ui-font-size2);
-  margin: 4px;
-  padding: 1px 6px;
-  :hover {
-    background-color: #00a7ec;
+  margin: 4px 0px;
+  padding: 0px 4px;
+  :disabled {
+    background-color: var(--jp-layout-color3);
   }
-  text-align: center;
 `;
 
 const ImportInput = styled(BaseInput)`
@@ -67,11 +63,11 @@ const Dropzone = styled(BaseWrapper)`
   border: 2px;
   border-style: dashed;
   justify-content: space-between;
+  margin: 0px;
+  padding: 0px;
   height: auto;
   width: auto;
 `;
-
-const ApiForm = styled(BaseForm)``;
 
 interface ApiSettingsProps {
   service: KaggleService;
@@ -81,8 +77,8 @@ function ApiSettings(props: ApiSettingsProps) {
   const apiToken = props.service.getApiToken();
   const [username, setUsername] = React.useState(apiToken!.username || "");
   const [token, setToken] = React.useState(apiToken!.token || "");
-  const [showError, setShowError] = React.useState(false);
-  const [error, setError] = React.useState("");
+  const [showError, setShowError] = React.useState(username == "");
+  const [error, setError] = React.useState("Start by import your Kaggle Api token");
 
   const dropzoneRef = React.createRef<DropzoneRef>();
   const onTokenDrop = (
@@ -95,47 +91,56 @@ function ApiSettings(props: ApiSettingsProps) {
     reader.onabort = () => console.log("file reading was aborted");
     reader.onerror = () => console.log("file reading has failed");
     reader.onload = () => {
-      const token = JSON.parse(reader.result.toString());
-      setUsername(token.username);
-      setToken(token.key);
+      try {
+        const token = JSON.parse(reader.result.toString());
+        if (!(token && token.username && token.key)) {
+          setError("Invalid token file.");
+          setShowError(true);
+          return;
+        }
+        setError("");
+        setShowError(false);
+        setUsername(token.username);
+        setToken(token.key);
+      } catch (e) {
+        setError("Invalid token file.");
+        setShowError(true);
+      }
     };
 
     acceptedFiles.forEach(file => reader.readAsBinaryString(file));
   };
 
-  const validate = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.debug('onSave');
     if (await props.service.onTokenChanged(username, token)) {
       setError("");
       setShowError(false);
     } else {
-      setError("Incorrect username and token combination");
+      setError("Invalid api token.");
       setShowError(true);
     }
   };
 
   return (
     <WidgetWrapper>
-      <Heading>Api Settings</Heading>
-      <InputLabel hidden={showError}>{error}</InputLabel>
-      <ApiForm onSubmit={validate}>
-        <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <Dropzone {...getRootProps()}>
-              <InputLabel>Import Api Token</InputLabel>
-              <Username
-                type="text"
-                disabled
-                placeholder="Username"
-                value={username}
-              />
-              <ImportAction>Browse</ImportAction>
-              <ImportInput {...getInputProps()} />
-            </Dropzone>
-          )}
-        </ReactDropzone>
-        <SaveAction onClick={e => e.stopPropagation()}>Save</SaveAction>
-      </ApiForm>
+      <Heading>Kaggle Extension Settings</Heading>
+      <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
+        {({ getRootProps, getInputProps }) => (
+          <Dropzone {...getRootProps()}>
+            <InputLabel>Api Token</InputLabel>
+            <ErrorMessage hidden={showError}>{error}</ErrorMessage>
+            <Username
+              type="text"
+              disabled
+              placeholder="drop file here or click to browse"
+              value={username}
+            />
+            <ImportInput {...getInputProps()} />
+          </Dropzone>
+        )}
+      </ReactDropzone>
+      <SaveAction disabled={showError} onClick={onSave}>Save</SaveAction>
     </WidgetWrapper>
   );
 }
