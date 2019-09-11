@@ -110,7 +110,7 @@ export class KaggleApi {
     let headers = new Headers({
       Authorization:
         "Basic " + btoa(this._token.username + ":" + this._token.token),
-      "User-Agent": "@kaggle/jupyterlab",
+      "X-User-Agent": "@kaggle/jupyterlab",
     });
     return headers;
   }

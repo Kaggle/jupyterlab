@@ -45,14 +45,25 @@ const DatasetListWrapper = styled(BaseWrapper)`
 `;
 
 const DatasetItemWrapper = styled(BaseWrapper)`
-  border-style: solid;
-  border-width: 1px;
-  height: 200px;
-  margin: 1px 0px 1px 0px;
+  margin: 0px;
   padding: 2px 2px 2px 6px;
   :hover {
-    background-color: var(--jp-layout-color2);
+    background-color: var(--jp-layout-color3);
   }
+  :nth-child(2n) {
+    background-color: var(--jp-layout-color2);
+    :hover {
+      background-color: var(--jp-layout-color3);
+    }
+  }
+`;
+
+const DatasetInfoWrapper = styled(BaseWrapper)`
+  border-style: none;
+  border-width: 0px;
+  height: auto;
+  margin: 1px 0px 1px 0px;
+  padding: 0px;
 `;
 
 const DatasetTopWrapper = styled(BaseWrapper)`
@@ -66,19 +77,11 @@ const DatasetTopWrapper = styled(BaseWrapper)`
   padding: 0px;
 `;
 
-const DatasetInfoWrapper = styled(BaseWrapper)`
-  border-style: none;
-  border-width: 0px;
-  height: auto;
-  margin: 1px 0px 1px 0px;
-  padding: 0px;
-  width: calc(100% - 24px);
-`;
-
 const DatasetTitleLabel = styled(BaseLabel)`
   color: var(--jp-ui-font-color2);
-  font-size: var(--jp-ui-font-size1);
+  font-size: var(--jp-ui-font-size2);
   margin-left: 2px;
+  width: calc(100% - 24px);
 `;
 
 const DatasetSlugLabel = styled(BaseLink)`
@@ -98,7 +101,7 @@ const DatasetOwnerLabel = styled(BaseLink)`
 `;
 
 const DownloadDataset = styled(BaseWrapper)`
-  color: var(--jp-ui-font-color1);
+  color: rgb(0, 138, 188);
   font-size: var(--jp-ui-font-size3);
   :hover {
     cursor: copy;
@@ -135,7 +138,7 @@ const Rating = styled(BaseLabel)`
 `;
 
 const DatasetDownloadWrapper = styled(BaseWrapper)`
-  height: 100px;
+  height: auto;
   margin: 4px 0px 4px 0px;
   padding: 0px;
 `;
@@ -150,34 +153,32 @@ interface DatasetPickerProps {
 
 interface DatasetItemProps extends DatasetPickerProps {
   data: DatasetItem;
-  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onDownload?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   children?: JSX.Element;
 }
 
 function DatasetItemView(props: DatasetItemProps) {
   return (
     <DatasetItemWrapper>
-      <DatasetTopWrapper>
-        <DatasetInfoWrapper>
-          <DatasetTitleLabel>
-            {props.data.title}
-          </DatasetTitleLabel>
-          <DatasetSlugLabel href={props.data.url} target="_blank">
-            <Icon icon={"external-link-square-alt"} />
-            {props.data.ref}
-          </DatasetSlugLabel>
-          <DatasetOwnerLabel
-            href={props.service.getOwnerUrl(props.data)}
-            target="_blank"
-          >
-            <Icon icon={"user"} />
-            {props.data.ownerName}
-          </DatasetOwnerLabel>
-        </DatasetInfoWrapper>
-        <DownloadDataset onClick={props.onClick}>
-          <Icon icon={"cloud-download-alt"} />
-        </DownloadDataset>
-      </DatasetTopWrapper>
+      <DatasetInfoWrapper>
+        <DatasetTopWrapper>
+          <DatasetTitleLabel>{props.data.title}</DatasetTitleLabel>
+          <DownloadDataset onClick={props.onDownload}>
+            <Icon icon={"cloud-download-alt"} />
+          </DownloadDataset>
+        </DatasetTopWrapper>
+        <DatasetSlugLabel href={props.data.url} target="_blank">
+          <Icon icon={"external-link-square-alt"} />
+          {props.data.ref}
+        </DatasetSlugLabel>
+        <DatasetOwnerLabel
+          href={props.service.getOwnerUrl(props.data)}
+          target="_blank"
+        >
+          <Icon icon={"user"} />
+          {props.data.ownerName}
+        </DatasetOwnerLabel>
+      </DatasetInfoWrapper>
       <DatasetStatsWrapper>
         <TimeAgo>
           <Icon icon={"calendar"} />
@@ -288,7 +289,7 @@ function DatasetPicker(props: DatasetPickerProps) {
               key={i}
               data={item}
               service={props.service}
-              onClick={e => {
+              onDownload={e => {
                 setSelectedDatasetItem(item);
                 DownloadDataset(item);
               }}

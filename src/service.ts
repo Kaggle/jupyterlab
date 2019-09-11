@@ -207,7 +207,14 @@ export class KaggleService {
       type: "notebook",
     });
 
-    const datasetPath: string =
+    const kagglePath: string = 
+      "/" +
+      PathExt.join(
+        PageConfig.getOption("serverRoot"),
+        KaggleService.ROOT_PATH
+      );
+
+      const datasetPath: string =
       "/" +
       PathExt.join(
         PageConfig.getOption("serverRoot"),
@@ -227,7 +234,26 @@ export class KaggleService {
                 truested: true,
               },
               outputs: [],
-              source: ["ls -l -a " + datasetPath],
+              source: [
+                "# You might want to install some useful Python packages to get started\n",
+                "# For example, here are several helpful packages to install \n",
+                "\n",
+                "# From a terminal run `pip install numpy` than uncomment the next line\n",
+                "#import numpy as np  # linear algebra\n",
+                "\n",
+                "# From a terminal run `pip install pandas` than uncomment the next line\n",
+                "#import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+                "\n",
+                "# Input data files are available in the \"" + kagglePath +"\" directory.\n",
+                "# For example, running this snippet (by clicking run or pressing Shift+Enter)\n",
+                "# will list all files under the input directory\n",
+                "\n",
+                "import os\n",
+                "for dirname, _, filenames in os.walk('" + datasetPath + "'):\n",
+                "    for filename in filenames:\n",
+                "        print(os.path.join(dirname, filename))\n",
+                "\n",
+                "# Any results you write to the current directory are saved as output.\n"              ],
             },
           ],
           metadata: {
