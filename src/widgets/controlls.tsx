@@ -17,7 +17,9 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCalendar,
   faCheck,
+  faCloudDownloadAlt,
   faDatabase,
+  faExternalLinkSquareAlt,
   faSpinner,
   faTimes,
   faToolbox,
@@ -26,6 +28,8 @@ import {
 
 library.add(faCalendar);
 library.add(faCheck);
+library.add(faCloudDownloadAlt);
+library.add(faExternalLinkSquareAlt);
 library.add(faDatabase);
 library.add(faSpinner);
 library.add(faTimes);

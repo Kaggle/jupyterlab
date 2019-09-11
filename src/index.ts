@@ -18,7 +18,7 @@ import {
   JupyterFrontEndPlugin,
 } from "@jupyterlab/application";
 
-import { ISettingRegistry } from "@jupyterlab/coreutils";
+import { IStateDB } from "@jupyterlab/coreutils";
 import { IDocumentManager } from "@jupyterlab/docmanager";
 import { KaggleWidget } from "./widget";
 import { KaggleService } from "./service";
@@ -30,7 +30,7 @@ const kaggleDatasetPlugin: JupyterFrontEndPlugin<void> = {
   id: KaggleService.PLUGIN_ID,
   activate,
   autoStart: true,
-  requires: [IDocumentManager, ILayoutRestorer, ISettingRegistry],
+  requires: [IDocumentManager, ILayoutRestorer, IStateDB],
 };
 
 /**
@@ -40,23 +40,13 @@ function activate(
   app: JupyterFrontEnd,
   manager: IDocumentManager,
   restorer: ILayoutRestorer,
-  settingRegistry: ISettingRegistry
+  stateDB: IStateDB
 ): void {
-  settingRegistry
-    .load(kaggleDatasetPlugin.id)
-    .then(settings => {
-      const kaggleService: KaggleService = new KaggleService(app, manager, settings);
-      const kaggleWidget: KaggleWidget = new KaggleWidget(kaggleService);
+  const kaggleService: KaggleService = new KaggleService(app, manager, stateDB);
+  const kaggleWidget: KaggleWidget = new KaggleWidget(kaggleService);
 
-      restorer.add(kaggleWidget, KaggleService.NAMESPACE);
-      app.shell.add(kaggleWidget, "left", { rank: 103 });
-    })
-    .catch(error =>
-      console.warn(
-        KaggleService.PLUGIN_ID + " loading settings failed. ",
-        error
-      )
-    );
+  restorer.add(kaggleWidget, KaggleService.NAMESPACE);
+  app.shell.add(kaggleWidget, "left", { rank: 103 });
 }
 
 /**

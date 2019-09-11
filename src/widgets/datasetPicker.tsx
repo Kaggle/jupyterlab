@@ -34,6 +34,10 @@ const SearchInput = styled(BaseInput)``;
 
 const ListDatasetsAction = styled(BaseButton)``;
 
+const Icon = styled(FontAwesomeIcon)`
+  margin: 0px 4px 0px 4px;
+`;
+
 const DatasetListWrapper = styled(BaseWrapper)`
   margin: 4px 0px 4px 0px;
   padding: 0px;
@@ -48,12 +52,33 @@ const DatasetItemWrapper = styled(BaseWrapper)`
   padding: 2px 2px 2px 6px;
   :hover {
     background-color: var(--jp-layout-color2);
-    cursor: grab;
   }
 `;
 
+const DatasetTopWrapper = styled(BaseWrapper)`
+  border-style: none;
+  border-width: 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: auto;
+  margin: 1px 0px 1px 0px;
+  padding: 0px;
+`;
+
+const DatasetInfoWrapper = styled(BaseWrapper)`
+  border-style: none;
+  border-width: 0px;
+  height: auto;
+  margin: 1px 0px 1px 0px;
+  padding: 0px;
+  width: calc(100% - 24px);
+`;
+
 const DatasetTitleLabel = styled(BaseLabel)`
+  color: var(--jp-ui-font-color2);
   font-size: var(--jp-ui-font-size1);
+  margin-left: 2px;
 `;
 
 const DatasetSlugLabel = styled(BaseLink)`
@@ -72,10 +97,17 @@ const DatasetOwnerLabel = styled(BaseLink)`
   }
 `;
 
+const DownloadDataset = styled(BaseWrapper)`
+  color: var(--jp-ui-font-color1);
+  font-size: var(--jp-ui-font-size3);
+  :hover {
+    cursor: copy;
+  }
+`;
+
 const DatasetStatsWrapper = styled(BaseWrapper)`
   border-style: none;
   border-width: 0px;
-  color: var(--jp-ui-font-color2);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -85,22 +117,21 @@ const DatasetStatsWrapper = styled(BaseWrapper)`
 `;
 
 const TimeAgo = styled(BaseLabel)`
+  color: var(--jp-ui-font-color2);
   font-size: var(--jp-ui-font-size0);
   width: 120px;
 `;
 
 const TotalBytes = styled(BaseLabel)`
+  color: var(--jp-ui-font-color2);
   font-size: var(--jp-ui-font-size0);
   width: 100px;
 `;
 
 const Rating = styled(BaseLabel)`
+  color: var(--jp-ui-font-color2);
   font-size: var(--jp-ui-font-size0);
   width: 50px;
-`;
-
-const Icon = styled(FontAwesomeIcon)`
-  margin: 0px 4px 0px 4px;
 `;
 
 const DatasetDownloadWrapper = styled(BaseWrapper)`
@@ -125,18 +156,28 @@ interface DatasetItemProps extends DatasetPickerProps {
 
 function DatasetItemView(props: DatasetItemProps) {
   return (
-    <DatasetItemWrapper onClick={props.onClick}>
-      <DatasetTitleLabel>{props.data.title}</DatasetTitleLabel>
-      <DatasetSlugLabel href={props.data.url} target="_blank">
-        {props.data.ref}
-      </DatasetSlugLabel>
-      <DatasetOwnerLabel
-        href={props.service.getOwnerUrl(props.data)}
-        target="_blank"
-      >
-        <Icon icon={"user"} />
-        {props.data.ownerName}
-      </DatasetOwnerLabel>
+    <DatasetItemWrapper>
+      <DatasetTopWrapper>
+        <DatasetInfoWrapper>
+          <DatasetTitleLabel>
+            {props.data.title}
+          </DatasetTitleLabel>
+          <DatasetSlugLabel href={props.data.url} target="_blank">
+            <Icon icon={"external-link-square-alt"} />
+            {props.data.ref}
+          </DatasetSlugLabel>
+          <DatasetOwnerLabel
+            href={props.service.getOwnerUrl(props.data)}
+            target="_blank"
+          >
+            <Icon icon={"user"} />
+            {props.data.ownerName}
+          </DatasetOwnerLabel>
+        </DatasetInfoWrapper>
+        <DownloadDataset onClick={props.onClick}>
+          <Icon icon={"cloud-download-alt"} />
+        </DownloadDataset>
+      </DatasetTopWrapper>
       <DatasetStatsWrapper>
         <TimeAgo>
           <Icon icon={"calendar"} />
@@ -159,7 +200,9 @@ function DatasetItemView(props: DatasetItemProps) {
 function DatasetPicker(props: DatasetPickerProps) {
   const [search, setSearch] = React.useState("");
   const [datasetItems, setDatasetItems] = React.useState(null as DatasetItem[]);
-  const [selectedDatasetItem, setSelectedDatasetItem] = React.useState(null as DatasetItem);
+  const [selectedDatasetItem, setSelectedDatasetItem] = React.useState(
+    null as DatasetItem
+  );
   const [downloadMessage, setDownloadMessage] = React.useState("");
   const [downloadIcon, setDownloadIcon] = React.useState("spinner" as IconProp);
   const [spinDownloadIcon, setSpinDownloadIcon] = React.useState(true);
@@ -171,7 +214,7 @@ function DatasetPicker(props: DatasetPickerProps) {
   ) => {
     setSelectedDatasetItem(null);
     setCurrentPage(1);
-    setCurrentSearch(search)
+    setCurrentSearch(search);
     const result = await props.service.listDatasets(1, search);
     setDatasetItems(result);
   };

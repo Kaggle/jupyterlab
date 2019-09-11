@@ -38,12 +38,11 @@
   "scripts": {
     "build": "yarn build:tsc",
     "build:all": "yarn build:tsc && yarn build:docker",
-    "build:docker": "docker build -t kaggle/jupyterlab-dev:head -f Dockerfile . && yarn docker:init",
+    "build:docker": "docker build -t kaggle/jupyterlab-dev:head -f Dockerfile .",
     "build:tsc": "tsc",
     "clean": "rimraf lib && rimraf tsconfig.tsbuildinfo",
-    "clean:docker": "rimraf docker/home/jovyan && yarn docker:init",
-    "docker": "docker run -it --rm -p 127.0.0.1:8888:8888 --name kaggle-jupyterlab-dev --mount type=bind,src=%CD%,dst=/github.com/kaggle/jupyterlab --mount type=bind,src=%CD%/docker/home/jovyan/.jupyter,dst=/home/jovyan/.jupyter kaggle/jupyterlab-dev:head",
-    "docker:init": "make-dir %CD%/docker/home/jovyan/.jupyter",
+    "clean:docker": "rimraf docker/home/jovyan",
+    "docker": "docker run -it --rm -p 127.0.0.1:8888:8888 --name kaggle-jupyterlab-dev --mount type=bind,src=%CD%,dst=/github.com/kaggle/jupyterlab kaggle/jupyterlab-dev:head",
     "prettier": "prettier --config prettierrc.js --write **/*{.ts,.tsx}",
     "postinstall": "echo install server extension",
     "test": "echo placeholder"
@@ -72,7 +71,6 @@
     "@types/jest": "^24.0.18",
     "@types/styled-components": "4.1.0",
     "jest": "^24.9.0",
-    "make-dir-cli": "^2.0.0",
     "prettier": "1.18.2",
     "rimraf": "^3.0.0",
     "typescript": "~3.6.2"

@@ -74,11 +74,21 @@ interface ApiSettingsProps {
 }
 
 function ApiSettings(props: ApiSettingsProps) {
-  const apiToken = props.service.getApiToken();
-  const [username, setUsername] = React.useState(apiToken!.username || "");
-  const [token, setToken] = React.useState(apiToken!.token || "");
-  const [showError, setShowError] = React.useState(username == "");
-  const [error, setError] = React.useState("Start by import your Kaggle Api token");
+  const [username, setUsername] = React.useState("");
+  const [token, setToken] = React.useState("");
+  const [showError, setShowError] = React.useState(true);
+  const [error, setError] = React.useState(
+    "Start by importing your Kaggle Api token"
+  );
+
+  props.service.getApiToken().then(apiToken => {
+    if (apiToken && apiToken.username !== "") {
+      setUsername(apiToken.username);
+      setToken(apiToken.token);
+      setError("");
+      setShowError(false);
+    }
+  });
 
   const dropzoneRef = React.createRef<DropzoneRef>();
   const onTokenDrop = (
@@ -112,7 +122,7 @@ function ApiSettings(props: ApiSettingsProps) {
   };
 
   const onSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.debug('onSave');
+    console.debug("onSave");
     if (await props.service.onTokenChanged(username, token)) {
       setError("");
       setShowError(false);
@@ -140,7 +150,9 @@ function ApiSettings(props: ApiSettingsProps) {
           </Dropzone>
         )}
       </ReactDropzone>
-      <SaveAction disabled={showError} onClick={onSave}>Save</SaveAction>
+      <SaveAction disabled={showError} onClick={onSave}>
+        Save
+      </SaveAction>
     </WidgetWrapper>
   );
 }

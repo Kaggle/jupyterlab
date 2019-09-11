@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { JSONObject } from "@phosphor/coreutils";
-import { ISettingRegistry, PathExt, PageConfig } from "@jupyterlab/coreutils";
+import { JSONObject, ReadonlyJSONValue } from "@phosphor/coreutils";
+import { PathExt, PageConfig, IStateDB } from "@jupyterlab/coreutils";
 import { IDocumentManager } from "@jupyterlab/docmanager";
 import { Contents } from "@jupyterlab/services";
 
@@ -31,7 +31,7 @@ export class KaggleService {
 
   private _app: JupyterFrontEnd;
   private _manager: IDocumentManager;
-  private _settings: ISettingRegistry.ISettings;
+  private _stateDB: IStateDB;
   private _drive: Contents.IManager;
 
   private _kapi: KaggleApi;
@@ -39,37 +39,45 @@ export class KaggleService {
 
   public onTokenChangeAccepted: () => void;
 
-  constructor(app: JupyterFrontEnd, manager: IDocumentManager, settings: ISettingRegistry.ISettings) {
+  constructor(
+    app: JupyterFrontEnd,
+    manager: IDocumentManager,
+    stateDB: IStateDB
+  ) {
+    this._ready = false;
     this._app = app;
     this._manager = manager;
-    this._settings = settings;
+    this._stateDB = stateDB;
 
     this._drive = this._manager.services.contents;
 
-    const apiToken = this.getApiToken();
-    this._ready = false;
-
-    if (
-      apiToken &&
-      apiToken.username &&
-      apiToken.username != "" &&
-      apiToken.token &&
-      apiToken.username != ""
-    ) {
-      const kapi2 = new KaggleApi(apiToken);
-      if (kapi2.hello()) {
-        this._ready = true;
-        this._kapi = kapi2;
+    this.getApiToken().then(apiToken => {
+      if (
+        apiToken &&
+        apiToken.username &&
+        apiToken.username != "" &&
+        apiToken.token &&
+        apiToken.username != ""
+      ) {
+        const kapi2 = new KaggleApi(apiToken);
+        if (kapi2.hello()) {
+          this._ready = true;
+          this._kapi = kapi2;
+          this.onTokenChangeAccepted();
+        }
       }
-    }
+    });
   }
 
   public isReady(): boolean {
     return this._ready;
   }
 
-  public getApiToken(): ApiToken {
-    return this._settings.get("apiToken").composite as ApiTokenObject;
+  public async getApiToken(): Promise<ApiToken> {
+    const apiToken = (await this._stateDB.fetch(
+      `${KaggleService.PLUGIN_ID}:apiToken`
+    )) as ApiTokenObject;
+    return apiToken;
   }
 
   public getOwnerUrl(data: DatasetItem): string {
@@ -80,12 +88,15 @@ export class KaggleService {
     username: string,
     token: string
   ): Promise<boolean> {
-    const apiToken = { username: username, token: token } as ApiToken;
+    const apiToken = { username: username, token: token } as ApiTokenObject;
     const kapi2 = new KaggleApi(apiToken);
 
     if (await kapi2.hello()) {
       this._kapi = kapi2;
-      this._settings.set("apiToken", apiToken as ApiTokenObject);
+      await this._stateDB.save(
+        `${KaggleService.PLUGIN_ID}:apiToken`,
+        apiToken as ReadonlyJSONValue
+      );
       this._ready = true;
       this.onTokenChangeAccepted && this.onTokenChangeAccepted();
       return true;
@@ -196,11 +207,13 @@ export class KaggleService {
       type: "notebook",
     });
 
-    const datasetPath: string = "/" + PathExt.join(
-      PageConfig.getOption('serverRoot'),
-      KaggleService.ROOT_PATH,
-      dataset.ref
-    );
+    const datasetPath: string =
+      "/" +
+      PathExt.join(
+        PageConfig.getOption("serverRoot"),
+        KaggleService.ROOT_PATH,
+        dataset.ref
+      );
 
     const notebook2 = await this._manager.services.contents.save(
       notebook.path,
@@ -244,8 +257,12 @@ export class KaggleService {
     );
 
     this._manager.openOrReveal(notebook2.path);
-    this._app.commands.execute("filebrowser:activate", {path : notebook2.path});
-    this._app.commands.execute("filebrowser:go-to-path", { path: notebook2.path });
+    this._app.commands.execute("filebrowser:activate", {
+      path: notebook2.path,
+    });
+    this._app.commands.execute("filebrowser:go-to-path", {
+      path: notebook2.path,
+    });
   }
 
   private bytesToBase64(bytes: Uint8Array): string {
