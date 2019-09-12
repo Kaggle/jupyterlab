@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { JupyterFrontEnd } from "@jupyterlab/application";
 import { JSONObject, ReadonlyJSONValue } from "@phosphor/coreutils";
 import { PathExt, PageConfig, IStateDB } from "@jupyterlab/coreutils";
 import { IDocumentManager } from "@jupyterlab/docmanager";
 import { Contents } from "@jupyterlab/services";
 
 import { KaggleApi, ApiToken, DatasetItem, DatasetFile } from "./kaggle";
-import { JupyterFrontEnd } from "@jupyterlab/application";
 
 interface ApiTokenObject extends ApiToken, JSONObject {}
 

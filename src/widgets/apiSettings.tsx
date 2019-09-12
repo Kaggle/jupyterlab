@@ -25,7 +25,9 @@ import {
   BaseWrapper,
 } from "./controlls";
 
-const Heading = styled.h2``;
+const Heading = styled.h2`
+  color: var(--jp-content-font-color1);
+`;
 
 const ErrorMessage = styled(BaseLabel)`
   color: var(--jp-error-color1);
@@ -37,12 +39,12 @@ const InputLabel = styled(BaseLabel)`
 `;
 
 const Username = styled(BaseInput)`
-  color: var(--jp-ui-font-color3);
+  color: var(--jp-content-font-color3);
   margin: 2px;
   padding: 0px 2px;
   width: calc(100% - 4px);
   ::placeholder {
-    font-size: var(--jp-ui-font-size0);
+    font-size: var(--jp-content-font-size0);
   }
 `;
 
@@ -134,7 +136,7 @@ function ApiSettings(props: ApiSettingsProps) {
 
   return (
     <WidgetWrapper>
-      <Heading>Kaggle Extension Settings</Heading>
+      <Heading>Kaggle Settings</Heading>
       <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
         {({ getRootProps, getInputProps }) => (
           <Dropzone {...getRootProps()}>

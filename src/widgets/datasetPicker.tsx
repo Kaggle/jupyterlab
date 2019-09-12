@@ -78,15 +78,15 @@ const DatasetTopWrapper = styled(BaseWrapper)`
 `;
 
 const DatasetTitleLabel = styled(BaseLabel)`
-  color: var(--jp-ui-font-color2);
-  font-size: var(--jp-ui-font-size2);
+  color: var(--jp-content-font-color2);
+  font-size: var(--jp-content-font-size2);
   margin-left: 2px;
   width: calc(100% - 24px);
 `;
 
 const DatasetSlugLabel = styled(BaseLink)`
   color: var(--jp-content-link-color);
-  font-size: var(--jp-ui-font-size0);
+  font-size: var(--jp-content-font-size0);
   :hover {
     color: var(--jp-content-link-color);
   }
@@ -94,7 +94,7 @@ const DatasetSlugLabel = styled(BaseLink)`
 
 const DatasetOwnerLabel = styled(BaseLink)`
   color: var(--jp-content-link-color);
-  font-size: var(--jp-ui-font-size0);
+  font-size: var(--jp-content-font-size0);
   :hover {
     color: var(--jp-content-link-color);
   }
@@ -102,7 +102,7 @@ const DatasetOwnerLabel = styled(BaseLink)`
 
 const DownloadDataset = styled(BaseWrapper)`
   color: rgb(0, 138, 188);
-  font-size: var(--jp-ui-font-size3);
+  font-size: var(--jp-content-font-size3);
   :hover {
     cursor: copy;
   }
@@ -120,20 +120,20 @@ const DatasetStatsWrapper = styled(BaseWrapper)`
 `;
 
 const TimeAgo = styled(BaseLabel)`
-  color: var(--jp-ui-font-color2);
-  font-size: var(--jp-ui-font-size0);
+  color: var(--jp-content-font-color2);
+  font-size: var(--jp-content-font-size0);
   width: 120px;
 `;
 
 const TotalBytes = styled(BaseLabel)`
-  color: var(--jp-ui-font-color2);
-  font-size: var(--jp-ui-font-size0);
+  color: var(--jp-content-font-color2);
+  font-size: var(--jp-content-font-size0);
   width: 100px;
 `;
 
 const Rating = styled(BaseLabel)`
-  color: var(--jp-ui-font-color2);
-  font-size: var(--jp-ui-font-size0);
+  color: var(--jp-content-font-color2);
+  font-size: var(--jp-content-font-size0);
   width: 50px;
 `;
 

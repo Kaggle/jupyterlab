@@ -47,27 +47,27 @@ export const BaseWrapper = styled.div`
 
 export const WidgetWrapper = styled(BaseWrapper)`
   background-color: var(--jp-layout-color1);
-  font-family: var(--jp-ui-font-family);
-  font-size: var(--jp-ui-font-size1);
+  font-family: var(--jp-content-font-family);
+  font-size: var(--jp-content-font-size1);
   height: calc(100vh - 95px);
   min-width: 270px;
   padding: 4px;
 `;
 
 export const BaseLabel = styled.span`
-  color: var(--jp-ui-font-color0);
+  color: var(--jp-content-font-color0);
   display: block;
-  font-size: var(--jp-ui-font-size1);
+  font-size: var(--jp-content-font-size1);
 `;
 
 export const BaseInput = styled.input`
   background: transparent;
   border: var(--jp-border-width) solid var(--jp-border-color2);
   box-sizing: border-box;
-  color: var(--jp-ui-font-color0);
+  color: var(--jp-content-font-color0);
   display: block;
-  font-size: var(--jp-ui-font-size2);
-  height: var(--jp-ui-line-height);
+  font-size: var(--jp-content-font-size2);
+  height: var(--jp-content-line-height);
   margin: 0 4px 8px 0;
   width: 100%;
   :focus-within {
@@ -75,7 +75,7 @@ export const BaseInput = styled.input`
     box-shadow: inset 0 0 4px var(--jp-brand-color2);
   }
   ::placeholder {
-    color: var(--jp-ui-font-color3);
+    color: var(--jp-content-font-color3);
     text-transform: uppercase;
   }
 `;
@@ -84,8 +84,8 @@ export const BaseButton = styled.button`
   background-color: rgb(0, 138, 188);
   border: 0px;
   border-radius: var(--jp-border-radius);
-  color: var(--jp-ui-inverse-font-color0);
-  font-size: var(--jp-ui-font-size3);
+  color: var(--jp-content-font-color3);
+  font-size: var(--jp-content-font-size3);
   margin: 0 0 8px 0;
   :hover {
     background-color: #00a7ec;
@@ -93,10 +93,10 @@ export const BaseButton = styled.button`
 `;
 
 export const BaseLink = styled.a`
-  color: var(--jp-ui-font-color0);
+  color: var(--jp-content-font-color0);
   display: block;
-  font-size: var(--jp-ui-font-size1);
+  font-size: var(--jp-content-font-size1);
   :hover {
-    color: var(--jp-ui-link-color);
+    color: var(--jp-content-link-color);
   }
 `;
