@@ -207,14 +207,11 @@ export class KaggleService {
       type: "notebook",
     });
 
-    const kagglePath: string = 
+    const kagglePath: string =
       "/" +
-      PathExt.join(
-        PageConfig.getOption("serverRoot"),
-        KaggleService.ROOT_PATH
-      );
+      PathExt.join(PageConfig.getOption("serverRoot"), KaggleService.ROOT_PATH);
 
-      const datasetPath: string =
+    const datasetPath: string =
       "/" +
       PathExt.join(
         PageConfig.getOption("serverRoot"),
@@ -244,16 +241,21 @@ export class KaggleService {
                 "# From a terminal run `pip install pandas` than uncomment the next line\n",
                 "#import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
                 "\n",
-                "# Input data files are available in the \"" + kagglePath +"\" directory.\n",
+                '# Input data files are available in the "' +
+                  kagglePath +
+                  '" directory.\n',
                 "# For example, running this snippet (by clicking run or pressing Shift+Enter)\n",
                 "# will list all files under the input directory\n",
                 "\n",
                 "import os\n",
-                "for dirname, _, filenames in os.walk('" + datasetPath + "'):\n",
+                "for dirname, _, filenames in os.walk('" +
+                  datasetPath +
+                  "'):\n",
                 "    for filename in filenames:\n",
                 "        print(os.path.join(dirname, filename))\n",
                 "\n",
-                "# Any results you write to the current directory are saved as output.\n"              ],
+                "# Any results you write to the current directory are saved as output.\n",
+              ],
             },
           ],
           metadata: {

@@ -17,26 +17,22 @@ import filesize from "filesize";
 import moment from "moment";
 import styled from "styled-components";
 import { ReactWidget } from "@jupyterlab/apputils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DatasetItem } from "../kaggle";
 import { KaggleService } from "../service";
 import {
-  BaseWrapper,
-  BaseInput,
   BaseButton,
   BaseLabel,
-  WidgetWrapper,
   BaseLink,
+  BaseInput,
+  BaseWrapper,
+  Icon,
+  WidgetWrapper,
 } from "./controlls";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const SearchInput = styled(BaseInput)``;
 
 const ListDatasetsAction = styled(BaseButton)``;
-
-const Icon = styled(FontAwesomeIcon)`
-  margin: 0px 4px 0px 4px;
-`;
 
 const DatasetListWrapper = styled(BaseWrapper)`
   margin: 4px 0px 4px 0px;
@@ -85,19 +81,13 @@ const DatasetTitleLabel = styled(BaseLabel)`
 `;
 
 const DatasetSlugLabel = styled(BaseLink)`
-  color: var(--jp-content-link-color);
+  display: block;
   font-size: var(--jp-content-font-size0);
-  :hover {
-    color: var(--jp-content-link-color);
-  }
 `;
 
 const DatasetOwnerLabel = styled(BaseLink)`
-  color: var(--jp-content-link-color);
+  display: block;
   font-size: var(--jp-content-font-size0);
-  :hover {
-    color: var(--jp-content-link-color);
-  }
 `;
 
 const DownloadDataset = styled(BaseWrapper)`

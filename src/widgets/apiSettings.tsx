@@ -23,9 +23,11 @@ import {
   BaseLabel,
   WidgetWrapper,
   BaseWrapper,
+  BaseLink,
+  Icon,
 } from "./controlls";
 
-const Heading = styled.h2`
+const SectionHeading = styled.h3`
   color: var(--jp-content-font-color1);
 `;
 
@@ -33,6 +35,12 @@ const ErrorMessage = styled(BaseLabel)`
   color: var(--jp-error-color1);
   padding: 2px 4px;
 `;
+
+const HelpText = styled(BaseLabel)`
+  margin: 4px 0px;
+`;
+
+const KaggleLink = styled(BaseLink)``;
 
 const InputLabel = styled(BaseLabel)`
   padding: 2px 4px;
@@ -63,9 +71,10 @@ const ImportInput = styled(BaseInput)`
 
 const Dropzone = styled(BaseWrapper)`
   border: 2px;
+  border-color: var(--jp-accent-color1);
   border-style: dashed;
   justify-content: space-between;
-  margin: 0px;
+  margin: 4px 0px;
   padding: 0px;
   height: auto;
   width: auto;
@@ -136,7 +145,51 @@ function ApiSettings(props: ApiSettingsProps) {
 
   return (
     <WidgetWrapper>
-      <Heading>Kaggle Settings</Heading>
+      <SectionHeading>Kaggle</SectionHeading>
+      <HelpText>
+        <KaggleLink href="https://www.kaggle.com" target="_blank">
+          Kaggle
+          <Icon icon={"external-link-square-alt"} />
+        </KaggleLink>
+        is an online community of data scientists and machine learners. Kaggle
+        allows users to find and publish data sets, explore and build models in
+        a web-based data-science environment, work with other data scientists
+        and machine learning engineers, and enter competitions to solve data
+        science challenges.
+      </HelpText>
+      <SectionHeading>Extension</SectionHeading>
+      <HelpText>
+        <KaggleLink
+          href="https://www.github.com/Kaggle/jupyterlab"
+          target="_blank"
+        >
+          Kaggle extension for JupyterLab
+          <Icon icon={"external-link-square-alt"} />
+        </KaggleLink>{" "}
+        enables you to browse and download Kaggle Dataset to use in your
+        JupyterLab.
+      </HelpText>
+      <SectionHeading>Contribution</SectionHeading>
+      <HelpText>
+        Also check out the{" "}
+        <KaggleLink
+          href="https://www.github.com/Kaggle/jupyterlab"
+          target="_blank"
+        >
+          GitHub project
+          <Icon icon={"external-link-square-alt"} />
+        </KaggleLink>
+        to interact with the community and contribute to the project.
+      </HelpText>
+      <SectionHeading>Settings</SectionHeading>
+      <HelpText>
+        Download your Kaggle API token from your{" "}
+        <KaggleLink href="https://www.kaggle.com/me/account" target="_blank">
+          Kaggle user's account page
+          <Icon icon={"external-link-square-alt"} />
+        </KaggleLink>
+        to get started.
+      </HelpText>
       <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
         {({ getRootProps, getInputProps }) => (
           <Dropzone {...getRootProps()}>
@@ -152,6 +205,7 @@ function ApiSettings(props: ApiSettingsProps) {
           </Dropzone>
         )}
       </ReactDropzone>
+      <HelpText>Don't forget to save the changes you have made.</HelpText>
       <SaveAction disabled={showError} onClick={onSave}>
         Save
       </SaveAction>

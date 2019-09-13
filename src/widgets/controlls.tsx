@@ -25,6 +25,7 @@ import {
   faToolbox,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 library.add(faCalendar);
 library.add(faCheck);
@@ -62,7 +63,7 @@ export const BaseLabel = styled.span`
 
 export const BaseInput = styled.input`
   background: transparent;
-  border: var(--jp-border-width) solid var(--jp-border-color2);
+  border: var(--jp-border-width) solid var(--jp-border-color1);
   box-sizing: border-box;
   color: var(--jp-content-font-color0);
   display: block;
@@ -84,7 +85,7 @@ export const BaseButton = styled.button`
   background-color: rgb(0, 138, 188);
   border: 0px;
   border-radius: var(--jp-border-radius);
-  color: var(--jp-content-font-color3);
+  color: var(--jp-ui-inverse-font-color1);
   font-size: var(--jp-content-font-size3);
   margin: 0 0 8px 0;
   :hover {
@@ -93,10 +94,13 @@ export const BaseButton = styled.button`
 `;
 
 export const BaseLink = styled.a`
-  color: var(--jp-content-font-color0);
-  display: block;
+  color: var(--jp-content-link-color);
   font-size: var(--jp-content-font-size1);
   :hover {
     color: var(--jp-content-link-color);
   }
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+  margin: 0px 4px 0px 4px;
 `;
