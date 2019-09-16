@@ -40,6 +40,8 @@ jupyter labextension install @kaggle/jupyterlab
 
 * JupyterLab >= 1.1.0 
 * A Kaggle account for accessing Kaggle API
+* [Yarn](https://yarnpkg.com)
+* [Docker](https://www.docker.com)
 
 #### Getting started
 
