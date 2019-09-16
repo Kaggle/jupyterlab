@@ -43,7 +43,8 @@ const HelpText = styled(BaseLabel)`
 
 const KaggleLink = styled(BaseLink)``;
 
-const InputLabel = styled(BaseLabel)`
+const TokenLabel = styled(BaseLabel)`
+  font-weight: var(--jp-content-heading-font-weight);
   padding: 2px 4px;
 `;
 
@@ -71,7 +72,7 @@ const ImportInput = styled(BaseInput)`
 `;
 
 const Dropzone = styled(BaseWrapper)`
-  border: 2px;
+  border: 3px;
   border-color: var(--jp-accent-color1);
   border-style: dashed;
   justify-content: space-between;
@@ -194,7 +195,7 @@ function ApiSettings(props: ApiSettingsProps) {
       <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
         {({ getRootProps, getInputProps }) => (
           <Dropzone {...getRootProps()}>
-            <InputLabel>Api Token</InputLabel>
+            <TokenLabel>Api Token</TokenLabel>
             <ErrorMessage hidden={showError}>{error}</ErrorMessage>
             <Username
               type="text"

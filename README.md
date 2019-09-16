@@ -30,11 +30,36 @@ jupyter labextension install @kaggle/jupyterlab
 
 ### Configure
 
+Before you start interacting with Kaggle datasets, you will need to import a
+Kaggle API token.  Simply drop the token file to the `Api Token` box or click
+on it to bring up the file browser and select the Kaggle Api token file.
+
+![Placeholder](add image here)
+
+Don't forget to save your changes.  When you click `Save` button the exetension
+will automatically takes you to dataset browser.
+
 ### Download
+
+To get to the dataset browser click on the magnifying glass on the toolbar.
+You can enter a search term in the text box and click on `List Datasets`
+button to retrieve a list of datasets.  At the end of list you can click on
+`More Datasets` to get more results.  You can click on the download icon on
+a dataset you are interested to work with and the file will be download to
+your Jupyter environment and a notebook will be created for you with basic
+instruction on how to get started.
+
+![Placeholder](add image here)
 
 ## Contributing
 
+We'd love to accept your patches and contributions to this project. See
+[CONTRIBUTEING.md](CONTRIBUTING.md) for more infromation.
+
 ### Development
+
+Here are some quick instruction to get your started experiementing with
+this extension locally.
 
 #### Requirements
 
@@ -43,7 +68,7 @@ jupyter labextension install @kaggle/jupyterlab
 * [Yarn](https://yarnpkg.com)
 * [Docker](https://www.docker.com)
 
-#### Getting started
+#### Build & Run
 
 ```bash
 # Clone the repo to your local environment
@@ -59,6 +84,9 @@ jupyter labextension install @kaggle/jupyterlab
 # Look for the url to access the JupyterLab instance in console output
 # after the service finishes starting up
 > yarn docker
+
+# If you are working on Windows run this command instead
+> yarn docker:win
 ```
 
 You can modify the Typescript files while docker is running and rebuild
