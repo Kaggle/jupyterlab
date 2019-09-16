@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// DO NOT RENAME THIS FILE TO settings.tsx THINGS WILL BREAK
 import React from "react";
 import styled from "styled-components";
 import ReactDropzone, { DropzoneRef, DropEvent } from "react-dropzone";
@@ -160,7 +161,7 @@ function ApiSettings(props: ApiSettingsProps) {
       <SectionHeading>Extension</SectionHeading>
       <HelpText>
         <KaggleLink
-          href="https://www.github.com/Kaggle/jupyterlab"
+          href="https://www.npmjs.com/package/@kaggle/jupyterlab"
           target="_blank"
         >
           Kaggle extension for JupyterLab

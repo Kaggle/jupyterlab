@@ -41,7 +41,6 @@
     "build:docker": "docker build -t kaggle/jupyterlab-dev:head -f Dockerfile .",
     "build:tsc": "prettier --config prettierrc.js --write **/*{.ts,.tsx} && tsc",
     "clean": "rimraf lib && rimraf tsconfig.tsbuildinfo",
-    "clean:docker": "rimraf docker/home/jovyan",
     "docker": "docker run -it --rm -p 127.0.0.1:8888:8888 --name kaggle-jupyterlab-dev --mount type=bind,src=%CD%,dst=/github.com/kaggle/jupyterlab kaggle/jupyterlab-dev:head",
     "postinstall": "echo install server extension",
     "test": "echo placeholder"
