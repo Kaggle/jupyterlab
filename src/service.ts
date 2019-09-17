@@ -169,6 +169,7 @@ export class KaggleService {
     dataset: DatasetItem,
     file: DatasetFile
   ): Promise<void> {
+    await this.ensureFolder(dataset.ref, file.ref);
     const datasetPath: string = PathExt.join(
       KaggleService.ROOT_PATH,
       dataset.ref
@@ -201,7 +202,7 @@ export class KaggleService {
       });
   }
 
-  public async createNotebook(dataset: DatasetItem) {
+  public async createNotebook(dataset: DatasetItem): Promise<void> {
     const notebook = await this._manager.newUntitled({
       path: "work",
       type: "notebook",
@@ -253,8 +254,6 @@ export class KaggleService {
                   "'):\n",
                 "    for filename in filenames:\n",
                 "        print(os.path.join(dirname, filename))\n",
-                "\n",
-                "# Any results you write to the current directory are saved as output.\n",
               ],
             },
           ],
@@ -293,20 +292,47 @@ export class KaggleService {
     });
   }
 
+  private async ensureFolder(
+    basePath: string,
+    filePath: string
+  ): Promise<void> {
+    let directory = PathExt.dirname(decodeURI(filePath));
+    console.debug("ensureFolder - basePath", basePath);
+    console.debug("ensureFolder - fullPath", filePath);
+    console.debug("ensureFolder - directory", directory);
+
+    if (directory == null || directory == "") {
+      return;
+    }
+
+    const fullPath = PathExt.join(
+      KaggleService.ROOT_PATH,
+      basePath,
+      directory);
+
+    await this._drive.get(fullPath, { content: false }).catch(async reason => {
+      const e = reason as Error;
+      if (e && e.message == "Invalid response: 404 Not Found") {
+        await this.ensureFolder(basePath, directory);
+        await this._drive.save(fullPath, { path: "", type: "directory" });
+      }
+    });
+  }
+
   private bytesToBase64(bytes: Uint8Array): string {
-    var base64 = "";
-    var encodings =
+    let base64 = "";
+    let encodings =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-    var byteLength = bytes.byteLength;
-    var byteRemainder = byteLength % 3;
-    var mainLength = byteLength - byteRemainder;
+    let byteLength = bytes.byteLength;
+    let byteRemainder = byteLength % 3;
+    let mainLength = byteLength - byteRemainder;
 
-    var a, b, c, d;
-    var chunk;
+    let a, b, c, d;
+    let chunk;
 
     // Main loop deals with bytes in chunks of 3
-    for (var i = 0; i < mainLength; i = i + 3) {
+    for (let i = 0; i < mainLength; i = i + 3) {
       // Combine the three bytes into a single integer
       chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
 

@@ -119,7 +119,7 @@ export class KaggleApi {
     const url = new URL("hello", KaggleApi.KAGGLE_API_URL);
 
     try {
-      var response = await fetch(url.href, {
+      let response = await fetch(url.href, {
         method: "get",
         mode: "cors",
         headers: this.getHeaders(),
