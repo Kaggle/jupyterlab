@@ -305,10 +305,8 @@ export class KaggleService {
       return;
     }
 
-    const fullPath = PathExt.join(
-      KaggleService.ROOT_PATH,
-      basePath,
-      directory);
+    const fullPath = PathExt.join(KaggleService.ROOT_PATH, basePath, directory);
+    console.debug("ensureFolder - fullPath", fullPath);
 
     await this._drive.get(fullPath, { content: false }).catch(async reason => {
       const e = reason as Error;

@@ -180,7 +180,7 @@ function DatasetItemView(props: DatasetItemProps) {
         </TotalBytes>
         <Rating>
           <Icon icon={"toolbox"} />
-          {props.data.usabilityRating.toFixed(1)}
+          {(props.data.usabilityRating * 10).toFixed(1)}
         </Rating>
       </DatasetStatsWrapper>
       {props.children && props.children}
