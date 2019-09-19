@@ -255,7 +255,7 @@ function DatasetPicker(props: DatasetPickerProps) {
   return (
     <WidgetWrapper>
       <SearchInput
-        placeholder="search for datasets"
+        placeholder="Search datasets"
         value={search}
         onChange={e => setSearch(e.target.value)}
       />

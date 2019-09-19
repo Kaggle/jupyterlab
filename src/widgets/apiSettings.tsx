@@ -147,22 +147,10 @@ function ApiSettings(props: ApiSettingsProps) {
 
   return (
     <WidgetWrapper>
-      <SectionHeading>Kaggle</SectionHeading>
-      <HelpText>
-        <KaggleLink href="https://www.kaggle.com" target="_blank">
-          Kaggle
-          <Icon icon={"external-link-square-alt"} />
-        </KaggleLink>
-        is an online community of data scientists and machine learners. Kaggle
-        allows users to find and publish data sets, explore and build models in
-        a web-based data-science environment, work with other data scientists
-        and machine learning engineers, and enter competitions to solve data
-        science challenges.
-      </HelpText>
-      <SectionHeading>Extension</SectionHeading>
+      <SectionHeading>Kaggle extension for JupyterLab</SectionHeading>
       <HelpText>
         <KaggleLink
-          href="https://www.npmjs.com/package/@kaggle/jupyterlab"
+          href="https://www.github.com/Kaggle/jupyterlab"
           target="_blank"
         >
           Kaggle extension for JupyterLab
@@ -171,31 +159,19 @@ function ApiSettings(props: ApiSettingsProps) {
         enables you to browse and download Kaggle Dataset to use in your
         JupyterLab.
       </HelpText>
-      <SectionHeading>Contribution</SectionHeading>
-      <HelpText>
-        Also check out the{" "}
-        <KaggleLink
-          href="https://www.github.com/Kaggle/jupyterlab"
-          target="_blank"
-        >
-          GitHub project
-          <Icon icon={"external-link-square-alt"} />
-        </KaggleLink>
-        to interact with the community and contribute to the project.
-      </HelpText>
-      <SectionHeading>Settings</SectionHeading>
+      <SectionHeading>Getting started</SectionHeading>
       <HelpText>
         Download your Kaggle API token from your{" "}
         <KaggleLink href="https://www.kaggle.com/me/account" target="_blank">
           Kaggle user's account page
           <Icon icon={"external-link-square-alt"} />
         </KaggleLink>
-        to get started.
+        to get started. (Click on the "Create New API Token" button.)
       </HelpText>
       <ReactDropzone ref={dropzoneRef} onDrop={onTokenDrop}>
         {({ getRootProps, getInputProps }) => (
           <Dropzone {...getRootProps()}>
-            <TokenLabel>Api Token</TokenLabel>
+            <TokenLabel>API Token</TokenLabel>
             <ErrorMessage hidden={showError}>{error}</ErrorMessage>
             <Username
               type="text"
@@ -207,7 +183,7 @@ function ApiSettings(props: ApiSettingsProps) {
           </Dropzone>
         )}
       </ReactDropzone>
-      <HelpText>Don't forget to save the changes you have made.</HelpText>
+      <HelpText>Don't forget to save your changes.</HelpText>
       <SaveAction disabled={showError} onClick={onSave}>
         Save
       </SaveAction>

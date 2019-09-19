@@ -46,7 +46,7 @@ function activate(
   const kaggleWidget: KaggleWidget = new KaggleWidget(kaggleService);
 
   restorer.add(kaggleWidget, KaggleService.NAMESPACE);
-  app.shell.add(kaggleWidget, "left", { rank: 103 });
+  app.shell.add(kaggleWidget, "left", { rank: 1001 });
 }
 
 /**

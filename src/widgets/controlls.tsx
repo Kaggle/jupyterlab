@@ -77,7 +77,6 @@ export const BaseInput = styled.input`
   }
   ::placeholder {
     color: var(--jp-content-font-color3);
-    text-transform: uppercase;
   }
 `;
 
