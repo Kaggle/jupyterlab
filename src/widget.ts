@@ -20,7 +20,6 @@ import { KaggleService } from "./service";
 
 export class KaggleWidget extends Widget {
   private _toolbar: Toolbar;
-  private _openKaggleButton: ToolbarButton;
   private _settingsButton: ToolbarButton;
   private _datasetButton: ToolbarButton;
 
@@ -76,15 +75,5 @@ export class KaggleWidget extends Widget {
       tooltip: "Browse Kaggle Datasets.",
     });
     this._toolbar.addItem("Dataset", this._datasetButton);
-
-    this._openKaggleButton = new ToolbarButton({
-      onClick: () => {
-        let url = "http://www.kaggle.com";
-        window.open(url);
-      },
-      iconClassName: "jp-Kaggle-icon",
-      tooltip: "Visit www.kaggle.com",
-    });
-    this._toolbar.addItem("Kaggle", this._openKaggleButton);
   }
 }
