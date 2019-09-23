@@ -297,16 +297,12 @@ export class KaggleService {
     filePath: string
   ): Promise<void> {
     let directory = PathExt.dirname(decodeURI(filePath));
-    console.debug("ensureFolder - basePath", basePath);
-    console.debug("ensureFolder - fullPath", filePath);
-    console.debug("ensureFolder - directory", directory);
 
     if (directory == null || directory == "") {
       return;
     }
 
     const fullPath = PathExt.join(KaggleService.ROOT_PATH, basePath, directory);
-    console.debug("ensureFolder - fullPath", fullPath);
 
     await this._drive.get(fullPath, { content: false }).catch(async reason => {
       const e = reason as Error;
