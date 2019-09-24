@@ -200,25 +200,31 @@ function DatasetPicker(props: DatasetPickerProps) {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [currentSearch, setCurrentSearch] = React.useState("");
 
-  const ListDatasets = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  React.useEffect(() => {
     setSelectedDatasetItem(null);
-    setCurrentPage(1);
-    setCurrentSearch(search);
-    const result = await props.service.listDatasets(1, search);
-    setDatasetItems(result);
+    setDatasetItems(null);
+    LoadDatasets(1);
+  }, [currentSearch]);
+
+  const LoadDatasets = async (page: number) => {
+    setCurrentPage(page);
+    const result = await props.service.listDatasets(page, currentSearch);
+    if (page == 1) {
+      setDatasetItems(result);
+    } else {
+      setDatasetItems(datasetItems.concat(result));
+    }
   };
 
-  const ListMoreDatasets = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    // capture currentPage before waiting on the promise to reduce
-    // timing issue with setCurrentPage
-    const promise = props.service.listDatasets(currentPage + 1, currentSearch);
-    setCurrentPage(currentPage + 1);
-    const result = await promise;
-    setDatasetItems(datasetItems.concat(result));
+  const OnKeyUp = async (keyCode: number) => {
+    switch (keyCode) {
+      case 13:
+        setCurrentSearch(search);
+        break;
+      case 27:
+        setSearch(currentSearch);
+        break;
+    }
   };
 
   const DownloadDataset = async (dataset: DatasetItem) => {
@@ -258,6 +264,8 @@ function DatasetPicker(props: DatasetPickerProps) {
         placeholder="Search datasets"
         value={search}
         onChange={e => setSearch(e.target.value)}
+        onBlur={e => setCurrentSearch(search)}
+        onKeyUp={e => OnKeyUp(e.keyCode)}
       />
       {selectedDatasetItem && (
         <DatasetDownloadWrapper>
@@ -269,9 +277,6 @@ function DatasetPicker(props: DatasetPickerProps) {
           </DatasetItemView>
         </DatasetDownloadWrapper>
       )}
-      <ListDatasetsAction onClick={ListDatasets}>
-        List Datasets
-      </ListDatasetsAction>
       {datasetItems && (
         <DatasetListWrapper>
           {datasetItems.map((item, i) => (
@@ -285,7 +290,7 @@ function DatasetPicker(props: DatasetPickerProps) {
               }}
             />
           ))}
-          <ListDatasetsAction onClick={ListMoreDatasets}>
+          <ListDatasetsAction onClick={e => LoadDatasets(currentPage + 1)}>
             Load More
           </ListDatasetsAction>
         </DatasetListWrapper>
