@@ -169,6 +169,7 @@ export class KaggleService {
     dataset: DatasetItem,
     file: DatasetFile
   ): Promise<void> {
+    console.debug("downloadFile", file.ref);
     await this.ensureFolder(dataset.ref, file.ref);
     const datasetPath: string = PathExt.join(
       KaggleService.ROOT_PATH,

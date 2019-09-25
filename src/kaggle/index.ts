@@ -229,14 +229,21 @@ export class KaggleApi {
 
   async downloadDatasetFile(dataset: DatasetItem, file: DatasetFile) {
     let downloadUrl = "datasets/download-raw/";
+    let fileUrl = file.ref;
     if (file.fileType == ".zip") {
       downloadUrl = "datasets/download/";
     }
+    if (fileUrl.includes("/")) {
+      fileUrl = fileUrl.replace(/\//g, "%2F");
+      downloadUrl = "datasets/download/";
+    }
+
     const url = new URL(
-      dataset.ref + "/" + file.ref,
+      dataset.ref + "/" + fileUrl,
       KaggleApi.KAGGLE_API_URL + downloadUrl
     );
     url.searchParams.append("noRedirect", "true");
+    console.debug("downloadDatasetFile", url.href);
 
     const response = await fetch(url.href, {
       method: "get",
