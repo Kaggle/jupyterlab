@@ -24,32 +24,31 @@ Dataset to use in your JupyterLab.
 
 ### Install
 
+Run the following command on your JupyterLab system to install the extension.
+
 ```bash
 jupyter labextension install @kaggle/jupyterlab
 ```
 
+Next time you start JupyterLab you should see a shiny new Kaggle icon on the left panel.
+
+![SideIcon](ExtensionIcon.png 'Icon')
+
 ### Configure
 
-Before you start interacting with Kaggle datasets, you will need to import a
-Kaggle API token.  Simply drop the token file to the `Api Token` box or click
-on it to bring up the file browser and select the Kaggle Api token file.
+To use the extension, you’ll need to download your Kaggle API token from your account page.  With the API token you can import it into the extension by dragging & dropping the file into the dotted area or click on the input box to bring up the file browser (1).  Once you imported the file make sure to save the change (2).
 
-![Placeholder](add image here)
+![Configure](Configure.png 'Configure')
 
-Don't forget to save your changes.  When you click `Save` button the exetension
-will automatically takes you to dataset browser.
+Once you save the changes, it will automatically take you to the dataset list panel, but you can always click on the settings icon to update the token.
 
-### Download
+### Work
 
-To get to the dataset browser click on the magnifying glass on the toolbar.
-You can enter a search term in the text box and click on `List Datasets`
-button to retrieve a list of datasets.  At the end of list you can click on
-`More Datasets` to get more results.  You can click on the download icon on
-a dataset you are interested to work with and the file will be download to
-your Jupyter environment and a notebook will be created for you with basic
-instruction on how to get started.
+1. On the dataset listing page, you can enter a search term in the input box to filter the results.  
+2. Once you find the dataset you’re  interested in, click on the download icon to download the dataset to your system.
 
-![Placeholder](add image here)
+
+![Work](Work.png 'Work')
 
 ## Contributing
 
