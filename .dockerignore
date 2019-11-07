@@ -3,23 +3,18 @@
 .dockerignore
 .gitignore
 
-npm_packages/
-
 # editor
 **/.vscode/
 **/.idea/
 
+**/npm_packages/
 **/node_modules/
-**/Dockerfile*
+**/test/build/*
 **/package-lock.json
 
 # misc
 .DS_Store
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 *.bundle.*
 *.tsbuildinfo
-*.log
+*.log*
