@@ -1,6 +1,6 @@
 {
   "name": "@kaggle/jupyterlab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Official Kaggle extension for JupyterLab.",
   "keywords": [
     "kaggle",
