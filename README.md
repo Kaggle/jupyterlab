@@ -18,7 +18,7 @@ token on the settings page of Kaggle extension for JupyterLab.
 Kaggle extension for JupyterLab enables you to browse and download Kaggle
 Dataset to use in your JupyterLab.
 
-![Kaggle](KaggleJupyterLab.png 'Kaggle')
+![Kaggle](docs/KaggleJupyterLab.png 'Kaggle')
 
 ## Getting started
 
@@ -32,13 +32,13 @@ jupyter labextension install @kaggle/jupyterlab
 
 Next time you start JupyterLab you should see a shiny new Kaggle icon on the left panel.
 
-![SideIcon](ExtensionIcon.png 'Icon')
+![SideIcon](docs/ExtensionIcon.png 'Icon')
 
 ### Configure
 
 To use the extension, you’ll need to download your Kaggle API token from your account page.  With the API token you can import it into the extension by dragging & dropping the file into the dotted area or click on the input box to bring up the file browser (1).  Once you imported the file make sure to save the change (2).
 
-![Configure](Configure.png 'Configure')
+![Configure](docs/Configure.png 'Configure')
 
 Once you save the changes, it will automatically take you to the dataset list panel, but you can always click on the settings icon to update the token.
 
@@ -48,7 +48,7 @@ Once you save the changes, it will automatically take you to the dataset list pa
 2. Once you find the dataset you’re  interested in, click on the download icon to download the dataset to your system.
 
 
-![Work](Work.png 'Work')
+![Work](docs/Work.png 'Work')
 
 ## Contributing
 
