@@ -25,6 +25,7 @@ interface ApiTokenObject extends ApiToken, JSONObject {}
 export class KaggleService {
   static NAMESPACE = "kaggle";
   static ROOT_PATH = "kaggle";
+  static WORK_PATH = "work";
   static PLUGIN_ID = "@kaggle/jupyterlab:kaggle";
   static KAGGLE_API_URL = KaggleApi.KAGGLE_API_URL;
   static KAGGLE_BASE_URL = "https://www.kaggle.com";
@@ -204,8 +205,21 @@ export class KaggleService {
   }
 
   public async createNotebook(dataset: DatasetItem): Promise<void> {
+    await this._drive
+      .get(KaggleService.WORK_PATH, { content: false })
+      .catch(async reason => {
+        const e = reason as Error;
+        if (e && e.message == "Invalid response: 404 Not Found") {
+          console.log("Creating working folder for", KaggleService.WORK_PATH);
+          await this._drive.save(KaggleService.WORK_PATH, {
+            path: "",
+            type: "directory",
+          });
+        }
+      });
+
     const notebook = await this._manager.newUntitled({
-      path: "work",
+      path: KaggleService.WORK_PATH,
       type: "notebook",
     });
 
