@@ -53,7 +53,7 @@ Once you save the changes, it will automatically take you to the dataset list pa
 ## Contributing
 
 We'd love to accept your patches and contributions to this project. See
-[CONTRIBUTEING.md](CONTRIBUTING.md) for more infromation.
+[CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
 ### Development
 
