@@ -37,6 +37,7 @@ export class KaggleService {
 
   private _kapi: KaggleApi;
   private _ready: boolean;
+  private _serverRoot: string;
 
   public onTokenChangeAccepted: () => void;
 
@@ -51,6 +52,7 @@ export class KaggleService {
     this._stateDB = stateDB;
 
     this._drive = this._manager.services.contents;
+    this._serverRoot = PageConfig.getOption("serverRoot");
 
     this.getApiToken().then(apiToken => {
       if (
@@ -223,17 +225,12 @@ export class KaggleService {
       type: "notebook",
     });
 
-    const kagglePath: string =
-      "/" +
-      PathExt.join(PageConfig.getOption("serverRoot"), KaggleService.ROOT_PATH);
+    const kagglePath: string = this._serverRoot + "/" + KaggleService.ROOT_PATH;
 
     const datasetPath: string =
+      this._serverRoot +
       "/" +
-      PathExt.join(
-        PageConfig.getOption("serverRoot"),
-        KaggleService.ROOT_PATH,
-        dataset.ref
-      );
+      PathExt.join(KaggleService.ROOT_PATH, dataset.ref);
 
     const notebook2 = await this._manager.services.contents.save(
       notebook.path,
