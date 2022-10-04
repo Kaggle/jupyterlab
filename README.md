@@ -1,3 +1,5 @@
+# WARNING: This extension as been deprecated and is unmaintained.
+
 # @kaggle/jupyterlab
 
 Official Kaggle extension for JupyterLab.
